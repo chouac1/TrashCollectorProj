@@ -4,11 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TrashCollectorProject.Data;
 
 namespace TrashCollectorProject.Controllers
 {
     public class CustomerController : Controller
     {
+        private ApplicationDbContext context;
+        public CustomerController(ApplicationDbContext _context)
+        {
+            context = _context;
+        }
         // GET: CustomerController
         public ActionResult Index()
         {

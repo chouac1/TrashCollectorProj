@@ -9,6 +9,8 @@ namespace TrashCollectorProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        DbSet<Customer> Customers;
+        DbSet<Employee> Employees;
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
