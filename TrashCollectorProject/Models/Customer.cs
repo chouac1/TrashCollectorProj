@@ -30,9 +30,11 @@ namespace TrashCollectorProject.Models
         public string Address { get; set; }
         [DisplayName("Customer's Zipcode")]
         public string Zipcode { get; set; }
+        [DisplayName("Pickup Confirmed")]
         public bool isConfirmed { get; set; }
 
         [ForeignKey("IdentityUser")]
+        [DisplayName("User ID")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
     }

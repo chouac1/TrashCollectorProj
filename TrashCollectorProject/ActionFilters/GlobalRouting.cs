@@ -11,7 +11,10 @@ namespace TrashCollectorProject.ActionFilters
         public class GlobalRouting : IActionFilter
         {
             private readonly ClaimsPrincipal _claimsPrincipal;
-            public GlobalRouting(ClaimsPrincipal claimsPrincipal)
+
+        public object User { get; private set; }
+
+        public GlobalRouting(ClaimsPrincipal claimsPrincipal)
             {
                 _claimsPrincipal = claimsPrincipal;
             }
