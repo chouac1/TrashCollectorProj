@@ -26,6 +26,9 @@ namespace TrashCollectorProject.Models
         public string StartDate { get; set; }
         [DisplayName("Service End Date")]
         public string EndDate { get; set; }
+
+        [DisplayName("Weekly Pickup Day")]
+        public string WeeklyPickup { get; set; }
         [DisplayName("Customer's Address")]
         public string Address { get; set; }
         [DisplayName("Customer's Zipcode")]
