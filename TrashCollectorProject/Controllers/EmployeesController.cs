@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using TrashCollectorProject.Models;
 
 namespace TrashCollectorProject.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,16 +23,17 @@ namespace TrashCollectorProject.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return RedirectToAction("Details");
         }
 
         // GET: Employees/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Customer.Include(c => c.IdentityUser).Where(m => m.IdentityUserId == userId).SingleOrDefault();
+            var employee = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
             if (employee == null)
             {
                 return RedirectToAction("Create");
@@ -59,6 +62,13 @@ namespace TrashCollectorProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);
+        }
+
+        public IActionResult TodaysPickup(int id)
+        {
+            var pendingPickups = _context.Customer.Where(c => c.isConfirmed == false).ToList();
+            var todaysTask = pendingPickups.Where(c => c.WeeklyPickup == "Wednesday").ToList();
+            return View();
         }
 
         // GET: Employees/Edit/5

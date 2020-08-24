@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollectorProject.Data;
 
 namespace TrashCollectorProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200824174914_added USER ID into EMPLOYEE model.")]
+    partial class addedUSERIDintoEMPLOYEEmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +50,8 @@ namespace TrashCollectorProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "faddc401-2c1c-48c6-8b55-c5ecc5b8d466",
-                            ConcurrencyStamp = "846c018b-def4-4827-9635-8d0558078536",
+                            Id = "880fa07a-42dd-45de-9de1-ab5c23597979",
+                            ConcurrencyStamp = "65f9343b-b99f-4139-84f8-915d2e18fa55",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -285,9 +287,6 @@ namespace TrashCollectorProject.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZipCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
