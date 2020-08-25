@@ -48,8 +48,15 @@ namespace TrashCollectorProject.Controllers
             var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             var employeeZip = employeePass.ZipCode;
             var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
+            string today = DateTime.Now.DayOfWeek.ToString();
+            var todaysPickup = customerZip.Where(d => d.WeeklyPickup == today).ToList();
+
+            //var confirmPickup = _context.Customer.Where(c => c.isConfirmed == false).ToList();
             
-            var todaysPickup = customerZip.Where(d => d.WeeklyPickup == "Wednesday").ToList();
+            //if ()
+            //{
+
+            //}
 
             return View(todaysPickup);
         }
@@ -107,6 +114,15 @@ namespace TrashCollectorProject.Controllers
             var fridayPickup = customerZip.Where(d => d.WeeklyPickup == "Friday").ToList();
 
             return View(fridayPickup);
+        }
+
+        public IActionResult ConfirmedPickup(int id)
+        {
+            var customer = _context.Customer.Where(c => c.Id == id).SingleOrDefault();
+            customer.isConfirmed = true;
+            customer.Balance += 50;
+            _context.SaveChanges();
+            return RedirectToAction("TodaysPickup");
         }
 
 
