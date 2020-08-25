@@ -48,10 +48,67 @@ namespace TrashCollectorProject.Controllers
             var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             var employeeZip = employeePass.ZipCode;
             var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
-            var todaysPickup = customerZip.Where(d => d.OneTimePickup == "08/26/2020" && d.WeeklyPickup == "Wednesday").ToList();
+            
+            var todaysPickup = customerZip.Where(d => d.WeeklyPickup == "Wednesday").ToList();
 
             return View(todaysPickup);
         }
+
+        public IActionResult MondayPickup(int id, Employee employee)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var employeeZip = employeePass.ZipCode;
+            var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
+
+            var mondayPickup = customerZip.Where(d => d.WeeklyPickup == "Monday").ToList();     
+            return View(mondayPickup);
+        }
+        public IActionResult TuesdayPickup(int id, Employee employee)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var employeeZip = employeePass.ZipCode;
+            var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
+     
+            var tuesdayPickup = customerZip.Where(d => d.WeeklyPickup == "Tuesday").ToList();   
+            return View(tuesdayPickup);
+        }
+        public IActionResult WednesdayPickup(int id, Employee employee)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var employeeZip = employeePass.ZipCode;
+            var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
+              
+            var wednesdayPickup = customerZip.Where(d => d.WeeklyPickup == "Wednesday").ToList();
+            
+            return View(wednesdayPickup);
+        }
+        public IActionResult ThursdayPickup(int id, Employee employee)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var employeeZip = employeePass.ZipCode;
+            var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
+             
+            var thursdayPickup = customerZip.Where(d => d.WeeklyPickup == "Thursday").ToList();
+
+            return View(thursdayPickup);
+        }
+
+        public IActionResult FridayPickup(int id, Employee employee)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var employeeZip = employeePass.ZipCode;
+            var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
+
+            var fridayPickup = customerZip.Where(d => d.WeeklyPickup == "Friday").ToList();
+
+            return View(fridayPickup);
+        }
+
 
         // GET: Employees/Create
         public IActionResult Create()

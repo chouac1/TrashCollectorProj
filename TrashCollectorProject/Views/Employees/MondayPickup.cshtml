@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TrashCollectorProject.Models.Customer>
 
 @{
-    ViewData["Title"] = "TodaysPickup";
+    ViewData["Title"] = "MondayPickup";
 }
 
-<h1>Today's Pickup</h1>
+<h1>Monday Pickups</h1>
 
 <table class="table">
     <thead>
@@ -76,24 +76,9 @@
                 @Html.DisplayFor(modelItem => item.isConfirmed)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Back To Today's Pickups</a> |
             </td>
-            <td>
-                <a asp-action="MondayPickup" asp-route-id="@item.Id">Monday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="TuesdayPickup" asp-route-id="@item.Id">Tuesday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="WednesdayPickup" asp-route-id="@item.Id">Wednesday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="ThursdayPickup" asp-route-id="@item.Id">Thursday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="FridayPickup" asp-route-id="@item.Id">Friday Pickups</a>
-            </td>
-
         </tr>
 }
     </tbody>
