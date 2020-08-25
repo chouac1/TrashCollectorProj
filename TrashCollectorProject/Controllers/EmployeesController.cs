@@ -39,18 +39,18 @@ namespace TrashCollectorProject.Controllers
                 return RedirectToAction("Create");
             }
 
-            return View(employee);
+            return RedirectToAction("TodaysPickup");
         }
 
-        public IActionResult CustomerDetails(int id, Employee employee)
+        public IActionResult TodaysPickup(int id, Employee employee)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             var employeeZip = employeePass.ZipCode;
             var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
             var todaysPickup = customerZip.Where(d => d.OneTimePickup == "08/26/2020" && d.WeeklyPickup == "Wednesday").ToList();
-            
-            return RedirectToAction();
+
+            return View(todaysPickup);
         }
 
         // GET: Employees/Create
@@ -76,13 +76,6 @@ namespace TrashCollectorProject.Controllers
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
             return View(employee);
-        }
-
-        public IActionResult TodaysPickup(int id)
-        {
-            var pendingPickups = _context.Customer.Where(c => c.isConfirmed == false).ToList();
-            var todaysTask = pendingPickups.Where(c => c.WeeklyPickup == "Wednesday").ToList();
-            return View();
         }
 
         // GET: Employees/Edit/5
