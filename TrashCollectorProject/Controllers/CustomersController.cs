@@ -90,33 +90,19 @@ namespace TrashCollectorProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,OneTimePickup,Balance,StartDate,EndDate,Address,Zipcode,isConfirmed,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Edit(int id, Customer customer)
         {
+            Customer updatedCustomer = _context.Customer.Where(c => c.Id == id).FirstOrDefault();
+            updatedCustomer.OneTimePickup = customer.OneTimePickup;
+            updatedCustomer.Balance = customer.Balance;
+            updatedCustomer.isConfirmed = customer.isConfirmed;
+            _context.SaveChanges();
+            
             if (id != customer.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerExists(customer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View(customer);
         }
