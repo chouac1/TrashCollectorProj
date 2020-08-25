@@ -6,6 +6,15 @@
 
 <h1>Today's Pickup</h1>
 
+<p>
+    <a asp-action="MondayPickup">Monday</a>&nbsp;&nbsp;
+    <a asp-action="TuesdayPickup">Tuesday</a>&nbsp;&nbsp;
+    <a asp-action="WednesdayPickup">Wednesday</a>&nbsp;&nbsp;
+    <a asp-action="ThursdayPickup">Thursday</a>&nbsp;&nbsp;
+    <a asp-action="FridayPickup">Friday</a>&nbsp;&nbsp;
+
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -43,58 +52,40 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OneTimePickup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Balance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeeklyPickup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zipcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isConfirmed)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-            </td>
-            <td>
-                <a asp-action="MondayPickup" asp-route-id="@item.Id">Monday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="TuesdayPickup" asp-route-id="@item.Id">Tuesday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="WednesdayPickup" asp-route-id="@item.Id">Wednesday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="ThursdayPickup" asp-route-id="@item.Id">Thursday Pickups</a>
-            </td>
-            <td>
-                <a asp-action="FridayPickup" asp-route-id="@item.Id">Friday Pickups</a>
-            </td>
-
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OneTimePickup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeeklyPickup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zipcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isConfirmed)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
