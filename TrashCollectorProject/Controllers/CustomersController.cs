@@ -35,6 +35,7 @@ namespace TrashCollectorProject.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customer.Include(c => c.IdentityUser).Where(m => m.IdentityUserId == userId).SingleOrDefault();
+            
             if (customer == null)
             {
                 return RedirectToAction("Create");

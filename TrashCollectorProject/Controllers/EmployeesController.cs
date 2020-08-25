@@ -29,10 +29,10 @@ namespace TrashCollectorProject.Controllers
         }
 
         // GET: Employees/Details/5
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var employee = _context.Employee.Include(c => c.IdentityUser).Where(m => m.IdentityUserId == userId).SingleOrDefault();
 
             if (employee == null)
             {
@@ -40,6 +40,17 @@ namespace TrashCollectorProject.Controllers
             }
 
             return View(employee);
+        }
+
+        public IActionResult CustomerDetails(int id, Employee employee)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeePass = _context.Employee.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var employeeZip = employeePass.ZipCode;
+            var customerZip = _context.Customer.Where(z => z.Zipcode == employeeZip).ToList();
+            var todaysPickup = customerZip.Where(d => d.OneTimePickup == "08/26/2020" && d.WeeklyPickup == "Wednesday").ToList();
+            
+            return RedirectToAction();
         }
 
         // GET: Employees/Create
@@ -53,14 +64,17 @@ namespace TrashCollectorProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName")] Employee employee)
+        public async Task<IActionResult> Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityUserId = userId;
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
             return View(employee);
         }
 
