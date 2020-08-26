@@ -120,7 +120,7 @@ namespace TrashCollectorProject.Controllers
         {
             var customer = _context.Customer.Where(c => c.Id == id).SingleOrDefault();
             customer.isConfirmed = true;
-            customer.Balance += 50;
+            customer.Balance += 10;
             _context.SaveChanges();
             return RedirectToAction("TodaysPickup");
         }

@@ -4,7 +4,41 @@
     ViewData["Title"] = "WednesdayPickup";
 }
 
-<h1>Wednesday Pickups</h1>
+<h1>Wednesday's Pickup</h1>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h3>Customer Map Locations</h3>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var milwaukee = { lat: 43.1199, lng: -88.00907 };
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: milwaukee });
+            var marker = new google.maps.Marker({ position: milwaukee, map: map });
+        }
+    </script>
+    <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoiR59vNQIQHxeUTGkuT3HYazscxXsnAs&callback=initMap">
+    </script>
+
+
+<p><p>
+    <a asp-action="MondayPickup">Monday</a>&nbsp;&nbsp;
+    <a asp-action="TuesdayPickup">Tuesday</a>&nbsp;&nbsp;
+    <a asp-action="WednesdayPickup">Wednesday</a>&nbsp;&nbsp;
+    <a asp-action="ThursdayPickup">Thursday</a>&nbsp;&nbsp;
+    <a asp-action="FridayPickup">Friday</a>&nbsp;&nbsp;
+</p></p>
 
 <table class="table">
     <thead>
@@ -43,43 +77,44 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OneTimePickup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Balance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeeklyPickup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zipcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isConfirmed)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Back To Today's Pickups</a> |
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OneTimePickup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeeklyPickup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zipcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isConfirmed)
+                </td>
+                <td>
+                    <a asp-action="ConfirmedPickup" asp-route-id="@item.Id">Confirm Pickup</a>&nbsp;&nbsp;
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+</body>
