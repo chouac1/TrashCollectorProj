@@ -96,7 +96,9 @@ namespace TrashCollectorProject.Controllers
             Customer updatedCustomer = _context.Customer.Where(c => c.Id == id).FirstOrDefault();
             updatedCustomer.OneTimePickup = customer.OneTimePickup;
             updatedCustomer.Balance = customer.Balance;
-            updatedCustomer.isConfirmed = customer.isConfirmed;
+            updatedCustomer.StartDate = customer.StartDate;
+            updatedCustomer.EndDate = customer.EndDate;
+            //updatedCustomer.isConfirmed = customer.isConfirmed;
             _context.SaveChanges();
             
             if (id != customer.Id)
